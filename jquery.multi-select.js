@@ -1,6 +1,4 @@
 // jquery.multi-select.js
-// by mySociety
-// https://github.com/mysociety/jquery-multi-select
 
 ;(function($) {
 
@@ -39,7 +37,7 @@
   }
 
   function arraysAreEqual(array1, array2) {
-    alert(array1);
+    console.log("arraysAreEqual");
     if ( array1.length != array2.length ){
       return false;
     }
@@ -57,8 +55,8 @@
   }
 
   $.extend(MultiSelect.prototype, {
-
     init: function() {
+      console.log("extend init");
       this.checkSuitableInput();
       this.findLabels();
       this.constructContainer();
@@ -73,12 +71,14 @@
     },
 
     checkSuitableInput: function(text) {
+      console.log("checkSuitableInput");
       if ( this.$element.is('select[multiple]') === false ) {
         throw new Error('$.multiSelect only works on <select multiple> elements');
       }
     },
 
     findLabels: function() {
+      console.log("findLabels");
       this.$labels = $('label[for="' + this.$element.attr('id') + '"]');
     },
 
@@ -89,6 +89,7 @@
     },
 
     constructButton: function() {
+      console.log("constructButton");
       var _this = this;
       this.$button = $(this.settings['buttonHTML']);
       this.$button.attr({
@@ -127,6 +128,7 @@
     },
 
     updateButtonContents: function() {
+      console.log("updateButtonContents");
       var _this = this;
       var options = [];
       var selected = [];
@@ -135,6 +137,8 @@
         var text = /** @type string */ ($(this).text());
         options.push(text);
         if ($(this).is(':selected')) {
+          $('#others_'+($(this).val())).attr("checked","checked");
+          $(this).attr("class","checked");
           selected.push( $.trim(text) );
         }
       });
@@ -277,6 +281,7 @@
     },
 
     updatePresets: function() {
+      console.log("updatePresets");
       var _this = this;
 
       $.each(this.settings['presets'], function(i, preset){
@@ -315,13 +320,13 @@
         .on('keydown.multiselect', this.upDown.bind(this, 'menuitem'))
         .text(' ' + $option.text());
 
-      console.log( $option.prop("class"));
+      //console.log( $option.prop("class"));
 
       if ( $option.prop("class") == "checked") {
            var $input = $('<input>')
                 .attr({
                   'type': 'checkbox',
-                  'id': unique_id,
+                  'id': 'others_'+$option.val(),
                   'value': $option.val(),
                   'checked' : 'checked'
                 })
@@ -330,7 +335,7 @@
             var $input = $('<input>')
                 .attr({
                   'type': 'checkbox',
-                  'id': unique_id,
+                  'id': 'others_'+$option.val(),
                   'value': $option.val(),
                 })
                 .prependTo($item);
