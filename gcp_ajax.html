@@ -13,7 +13,7 @@
             </th>
             <th style="text-align: center;">Is Default</th>
         </tr>
-        {% for item in apis.predefined %}
+       <!-- {% for item in apis.predefined %}
         <tr>
             <td>{{ item.family }}</td>
             <td>{{ item.api }}</td>
@@ -29,7 +29,7 @@
             </td>
             <td>{{ item.isDefault }}</td>
         </tr>
-        {% endfor %}
+        {% endfor %}-->
     </table>
 
     <input class="form-control" type="hidden" name="tags_json_data" id="json_data" />
@@ -43,14 +43,14 @@
                 <form class="other-apis">
                     <label for="otherApis">Select additional services:</label>
                     <select id="otherApis" name="otherApis" multiple>
-                        {% for item in apis.otherApis %}
+                       <!-- {% for item in apis.otherApis %}
                         {% if item.selected %}
                         <option value = {{ item.apiId }} class="checked" >{{ item.api }}</option>
                         {% else %}
                         <option value = {{ item.apiId }} >{{ item.api }}</option>
                         {% endif %}
 
-                        {% endfor %}
+                        {% endfor %}-->
                     </select>
                 </form>
             </div>
@@ -63,8 +63,88 @@
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
-    $(function(){
-        $('#otherApis').multiSelect();
+    apis = {"predefined": [
+         {
+             "apiId": 100,
+             "api": "API100",
+             "family": "F1",
+             "selected": true,
+             "isDefault": false
+         },
+         {
+             "apiId": 101,
+             "api": "API101",
+             "family": "F2",
+             "selected": false,
+             "isDefault": true
+         },
+         {
+             "apiId": 200,
+             "api": "API200",
+             "family": "Others",
+             "selected": true,
+             "isDefault": false
+         },
+         {
+             "apiId": 202,
+             "api": "API202",
+             "family": "Others",
+             "selected": true,
+             "isDefault": false
+         }
+
+     ],
+         "otherApis": [
+             {
+                 "apiId": 200,
+                 "api": "API200",
+                 "family": "",
+                 "selected": true,
+             },
+             {
+                 "apiId": 201,
+                 "api": "API202",
+                 "family": "",
+                 "selected": false,
+             },
+             {
+                 "apiId": 202,
+                 "api": "API202",
+                 "family": "",
+                 "selected": true,
+             },
+             {
+                 "apiId": 204,
+                 "api": "API204",
+                 "family": "",
+                 "selected": false,
+             }
+         ]
+     }
+
+ $(function(){
+    $.each(apis.predefined, function (i) {
+        $("#item_table > tbody").append("<tr>");
+        $("#item_table > tbody").append("<td>"+apis.predefined[i].family+"</td>");
+        $("#item_table > tbody").append("<td>"+apis.predefined[i].api+"</td>");
+        if (apis.predefined[i].selected){
+           $("#item_table > tbody").append("<td><div class='form-check'><input class='form-check-input' type='checkbox' id="+apis.predefined[i].apiId+" checked/></td>");
+        } else {
+            $("#item_table > tbody").append("<td><div class='form-check'><input class='form-check-input' type='checkbox' id="+apis.predefined[i].apiId+" /></td>");
+        }
+        $("#item_table > tbody").append("<td>"+apis.predefined[i].isDefault+"</td>");
+        $("#item_table > tbody").append("</tr>");
     });
+
+    $.each(apis.otherApis, function (i) {
+       checked = apis.otherApis[i].selected ? "checked" : "";
+       $("#otherApis").append($("<option></option>")
+                              .attr("value", apis.otherApis[i].apiId)
+                              .attr("class", checked)
+                              .text(apis.otherApis[i].api));
+    });
+
+     $('#otherApis').multiSelect();
+ });
 </script>
 {% endblock %}
