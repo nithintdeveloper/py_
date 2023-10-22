@@ -1,0 +1,70 @@
+{% extends 'layout/app.html' %}
+<script type="text/javascript" src="js/jquery.multi-select.js"></script>
+{% block body %}
+<div class="row">
+    <table class="table table-bordered" id="item_table" style="width: 97%;margin-left: 2%;">
+        <tr>
+            <th style="text-align: center;">Family Name</th>
+            <th style="text-align: center;">API</th>
+            <th>
+                <span class="fa fa-info-circle" aria-hidden="true"
+                      data-toggle="tooltip" data-placement="top" title="Check the box to add API">
+                </span>
+            </th>
+            <th style="text-align: center;">Is Default</th>
+        </tr>
+        {% for item in apis.predefined %}
+        <tr>
+            <td>{{ item.family }}</td>
+            <td>{{ item.api }}</td>
+            <td>
+                <div class="form-check">
+                    {% if item.selected %}
+                    <input class="form-check-input" type="checkbox" value="" id= {{ item.apiId }} checked/>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"/>
+                    {% endif %}
+
+                </div>
+            </td>
+            <td>{{ item.isDefault }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <input class="form-control" type="hidden" name="tags_json_data" id="json_data" />
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="div-center">
+                <form class="other-apis">
+                    <label for="otherApis">Select additional services:</label>
+                    <select id="otherApis" name="otherApis" multiple>
+                        {% for item in apis.otherApis %}
+                        {% if item.selected %}
+                        <option value = {{ item.apiId }} class="checked" >{{ item.api }}</option>
+                        {% else %}
+                        <option value = {{ item.apiId }} >{{ item.api }}</option>
+                        {% endif %}
+
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+    $(function(){
+        $('#otherApis').multiSelect();
+    });
+</script>
+{% endblock %}
