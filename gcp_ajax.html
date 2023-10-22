@@ -40,7 +40,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="div-center">
-                <form class="other-apis">
+                <form class="other-apis" >
                     <label for="otherApis">Select additional services:</label>
                     <select id="otherApis" name="otherApis" multiple>
                        <!-- {% for item in apis.otherApis %}
@@ -52,6 +52,7 @@
 
                         {% endfor %}-->
                     </select>
+                    <input id="otherApisAddButton"  class="btn btn-primary btn-sm" type="button" value="Add" >
                 </form>
             </div>
         </div>
@@ -103,7 +104,7 @@
              },
              {
                  "apiId": 201,
-                 "api": "API202",
+                 "api": "API201",
                  "family": "",
                  "selected": false,
              },
@@ -124,7 +125,7 @@
 
  $(function(){
     $.each(apis.predefined, function (i) {
-        $("#item_table > tbody").append("<tr>");
+        $("#item_table > tbody").append("<tr id=tr_"+apis.predefined[i].apiId+">");
         $("#item_table > tbody").append("<td>"+apis.predefined[i].family+"</td>");
         $("#item_table > tbody").append("<td>"+apis.predefined[i].api+"</td>");
         if (apis.predefined[i].selected){
@@ -146,5 +147,22 @@
 
      $('#otherApis').multiSelect();
  });
+
+ $('#otherApisAddButton').click(function(){
+    $("#otherApis > option").each(function() {
+        if($(this).attr("class") == "checked" && $('#tr_'+this.value).length == 0) {
+          //console.log($('#tr_'+($(this).val())));
+          //console.log($(this).val());
+          $("#item_table > tbody").append("<tr id=tr_"+$(this).val()+">");
+          $("#item_table > tbody").append("<td></td>");
+          $("#item_table > tbody").append("<td>"+$(this).text()+"</td>");
+          $("#item_table > tbody").append("<td><div class='form-check'><input class='form-check-input' type='checkbox' id="+$(this).val()+" /></td>");
+         $("#item_table > tbody").append("<td>false</td>");
+          $("#item_table > tbody").append("</tr>");
+        }
+    });
+ });
+
+ $('#otherApis').prop('checked', true);
 </script>
 {% endblock %}
