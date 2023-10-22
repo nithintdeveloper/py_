@@ -75,6 +75,27 @@
          {
              "apiId": 101,
              "api": "API101",
+             "family": "F1",
+             "selected": false,
+             "isDefault": false
+         },
+         {
+             "apiId": 102,
+             "api": "API102",
+             "family": "F1",
+             "selected": true,
+             "isDefault": false
+         },
+         {
+             "apiId": 103,
+             "api": "API103",
+             "family": "F2",
+             "selected": false,
+             "isDefault": true
+         },
+         {
+             "apiId": 104,
+             "api": "API104",
              "family": "F2",
              "selected": false,
              "isDefault": true
@@ -119,14 +140,43 @@
                  "api": "API204",
                  "family": "",
                  "selected": false,
+             },
+             {
+                 "apiId": 205,
+                 "api": "API205",
+                 "family": "",
+                 "selected": false,
+             },
+             {
+                 "apiId": 206,
+                 "api": "API206",
+                 "family": "",
+                 "selected": false,
+             },
+             {
+                 "apiId": 207,
+                 "api": "API207",
+                 "family": "",
+                 "selected": false,
              }
          ]
      }
 
  $(function(){
+    familiesSet = new Set();
+    familiesMap = new Map();
     $.each(apis.predefined, function (i) {
+        if(familiesSet.has(apis.predefined[i].family)){
+            count = familiesMap.get(apis.predefined[i].family);
+            familiesMap.set(apis.predefined[i].family, ++count);
+        }else {
+          familiesSet.add(apis.predefined[i].family);
+          familiesMap.set(apis.predefined[i].family, 1);
+        }
+        family = familiesMap.get(apis.predefined[i].family) > 1 ? "" : apis.predefined[i].family;
+
         $("#item_table > tbody").append("<tr id=tr_"+apis.predefined[i].apiId+">");
-        $("#item_table > tbody").append("<td>"+apis.predefined[i].family+"</td>");
+        $("#item_table > tbody").append("<td>"+family+"</td>");
         $("#item_table > tbody").append("<td>"+apis.predefined[i].api+"</td>");
         if (apis.predefined[i].selected){
            $("#item_table > tbody").append("<td><div class='form-check'><input class='form-check-input' type='checkbox' id="+apis.predefined[i].apiId+" checked/></td>");
@@ -136,6 +186,7 @@
         $("#item_table > tbody").append("<td>"+apis.predefined[i].isDefault+"</td>");
         $("#item_table > tbody").append("</tr>");
     });
+    //console.log(familiesMap);
 
     $.each(apis.otherApis, function (i) {
        checked = apis.otherApis[i].selected ? "checked" : "";
