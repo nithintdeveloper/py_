@@ -49,24 +49,6 @@ apis = {"predefined": [
 $(document).ready(function() {
     pageRefresh();
      $('#add_apis').click(function(){
-         var selectedApis = {};
-         console.log(selectedApis);
-         /*itemCount=$('.tr_others').length
-         $("#rightbox_select > option").each(function() {
-             if($(this).attr("class") == "checked" && $('#tr_'+this.value).length == 0) {
-               console.log($('#tr_'+($(this).val())));
-               console.log($(this).val());
-              itemCount++;
-               family = itemCount> 1 ? "" : "Others";
-               $("#item_table > tbody").append("<tr class='tr_others' id=tr_"+$(this).val()+">");
-               $("#item_table > tbody").append("<td>"+family+"</td>");
-               $("#item_table > tbody").append("<td>"+$(this).text()+"</td>");
-               $("#item_table > tbody").append("<td><div class='form-check'><input class='form-check-input' type='checkbox' id="+$(this).val()+" checked /></td>");
-              $("#item_table > tbody").append("<td>false</td>");
-               $("#item_table > tbody").append("</tr>");
-             }
-         });*/
-         apis.selectedApis.push(106);
          pageRefresh();
       });
 
@@ -85,12 +67,12 @@ function pageRefresh(){
                          $('#rightbox_select').append("<option value="+apis.predefined[i].apiId+" data-section="+apis.predefined[i].family+" selected data-index='1'>"+apis.predefined[i].api+"</option>");
                    }
       });
-      $("#leftbox_select").treeMultiselect({
+     $("#leftbox_select").treeMultiselect({
                      allowBatchSelection: true,
                      enableSelectAll: true,
                      searchable: true,
                      sortable: true,
-                     startCollapsed: true,
+                     startCollapsed: false,
                      hideSidePanel: true
         });
        $("#rightbox_select").treeMultiselect({
@@ -98,7 +80,7 @@ function pageRefresh(){
                      enableSelectAll: true,
                      searchable: true,
                      sortable: true,
-                     startCollapsed: true,
+                     startCollapsed: false,
                      hideSidePanel: true
        });
 }
