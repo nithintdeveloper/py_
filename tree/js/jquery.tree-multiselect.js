@@ -857,6 +857,7 @@ Tree.prototype.render = function (noCallbacks) {
 
   Util.array.subtract(this.selectedKeys, this.keysToRemove); // now add items
 
+  var selectedApis = new Set(apis.selectedApis);
   for (var jj = 0; jj < this.keysToAdd.length; ++jj) {
     // create selected divs
     var key = this.keysToAdd[jj];
@@ -869,9 +870,13 @@ Tree.prototype.render = function (noCallbacks) {
     var inputNode = astItem.node.getElementsByTagName('INPUT')[0];
 
     if (inputNode) {
+      selectedApis.add(parseInt(selectedNode.getAttribute('data-value')));
+      //console.log(selectedApis);
       inputNode.checked = true;
     }
   }
+  apis.selectedApis = Array.from(selectedApis);
+  //console.log(apis);
 
   (_this$selectedKeys = this.selectedKeys).push.apply(_this$selectedKeys, _toConsumableArray(this.keysToAdd));
 
@@ -1172,6 +1177,7 @@ exports.createSelection = function (astItem, createCheckboxes, disableCheckboxes
 
 exports.createSelected = function (astItem, disableRemoval, showSectionOnSelected) {
   var node = exports.createNode('div', {
+    //"id": astItem.value,
     "class": 'item',
     'data-key': astItem.id,
     'data-value': astItem.value,
