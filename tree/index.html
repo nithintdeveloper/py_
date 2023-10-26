@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS property to place div
+    side by side -->
+    <style>
+        #leftbox {
+        float:left;
+        width:45%;
+        height:280px;
+        }
+        #middlebox{
+        float:left;
+        width:10%;
+        height:280px;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 309px;
+        }
+        #rightbox{
+        float:right;
+        width:45%;
+        height:280px;
+        }
+        h1{
+        color:green;
+        text-align:center;
+        }
+        .end-btn {
+          margin-top: 2vw;
+          background-color: #DAA521;
+          border: none;
+          width: 8vw;
+          height: 3vw;
+          font-size: 1vw;
+          color: #FFFFFF;
+          border-radius: 0.5vw;
+          font-weight: bold;
+          cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="css/jquery.tree-multiselect.min.css">
+
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/nt.js"></script>
+    <script src="js/jquery.tree-multiselect.js"></script>
+</head>
+<body>
+<div id = "boxes">
+    <h1>Tree View</h1>
+    <div id = "leftbox">
+        <h2>Full List of Apis</h2>
+        <select id="leftbox_select" multiple="multiple"></select>
+    </div>
+    <div id = "middlebox">
+        <button id="add_apis" class="end-btn"> Add </button>
+    </div>
+    <div id = "rightbox">
+        <h2>Selected Apis</h2>
+        <select id="rightbox_select" multiple="multiple"> </select>
+    </div>
+</div>
+</body>
+
+</html>
