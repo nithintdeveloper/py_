@@ -1,4 +1,4 @@
-apis = {"predefined": [
+var apis = {"predefined": [
                  {
                      "apiId": 100,
                      "api": "API100",
@@ -45,10 +45,12 @@ apis = {"predefined": [
 
              ],
                  "selectedApis": [101,104]
-             }
+             };
+var selectedApiIds = apis.selectedApis; // save these ids in the db
 $(document).ready(function() {
     pageRefresh();
      $('#add_apis').click(function(){
+         selectedApiIds = apis.selectedApis; // update only when the button is clicked
          pageRefresh();
       });
 
@@ -75,6 +77,7 @@ function pageRefresh(){
                      startCollapsed: false,
                      hideSidePanel: true
         });
+       //$("#leftbox_select").treeMultiselect({ enableSelectAll: true, sortable: true });
        $("#rightbox_select").treeMultiselect({
                      allowBatchSelection: true,
                      enableSelectAll: true,
